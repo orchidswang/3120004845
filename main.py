@@ -1,8 +1,6 @@
-import io
 
 import jieba
 from jieba import analyse
-from line_profiler import LineProfiler
 from line_profiler_pycharm import profile
 from simhash import Simhash
 
