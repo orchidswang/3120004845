@@ -29,16 +29,19 @@ def simhash_similarity(text1, text2):
     #计算两个hash值之间的汉明距
     distince = a_simhash.distance(b_simhash)
     print("两文章Simhash处理后的汉明距离为:", distince)
-    similar = (1-(distince / hashbit))*100
+    distince1 = distince
+    if(distince <= 5): distince1 = 0
+    similar = (1-(distince / hashbit))*100 - distince1*1.8
 
     #如果两篇文章相似度不高,使用分词会导致相似度虚高,所以使用关键词提取来判断文本相似度
-    if(similar<=80):
+    '''if(similar<=80):
         word1 = analyse.extract_tags(text1, topK=800)
         word2 = analyse.extract_tags(text2, topK=800)
         a_simhash = Simhash(word1)
         b_simhash = Simhash(word2)
         distince = a_simhash.distance(b_simhash)
-        similar = (1-(distince / hashbit)) * 100
+        print(distince)
+        similar = (1-(distince / hashbit)) * 100 - distince'''
 
     return similar
 
