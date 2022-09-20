@@ -4,6 +4,7 @@ from line_profiler_pycharm import profile
 import os
 import re
 from simhash import Simhash
+import unittest
 
 pr = cProfile.Profile()
 pr.enable()
@@ -48,8 +49,8 @@ def remove_punctuation(data):
 
 @profile
 def main():
-    file1 = '测试文本/ori.txt'
-    file2 = '测试文本/ori_0.8_del.txt'
+    file1 = '测试文本/orig.txt'
+    file2 = '测试文本/orig_0.8_del.txt'
 
     # 判断文件是否存在,如果不存在,则结束运行
     if (os.path.exists(file1) == False | os.path.exists(file2) == False):
@@ -74,7 +75,9 @@ def main():
     print("文本相似度:", similary, "%")
 
 # 运行程序
-main()
+if __name__ == "__main__":
+    main()
+
 
 '''pr.disable()
 s = io.StringIO()
