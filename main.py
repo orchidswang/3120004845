@@ -1,16 +1,17 @@
 import jieba
-import cProfile
 from line_profiler_pycharm import profile
+# import cProfile
 import os
 import re
 from simhash import Simhash
 import sys
 
+# 此为查看程序的性能分析
+'''pr = cProfile.Profile()
+pr.enable()'''
 
-pr = cProfile.Profile()
-pr.enable()
 
-
+# 通过该函数进行相似度的比较
 @profile
 def simhash_similarity(text1, text2):
     word1 = jieba.lcut(text1, cut_all=False, HMM=True)
@@ -49,7 +50,7 @@ def remove_punctuation(data):
 
 
 @profile
-def main():
+def run():
     file1 = sys.argv[1]
     file2 = sys.argv[2]
 
@@ -75,10 +76,10 @@ def main():
     print("抄袭论文的绝对路径:", os.path.abspath(file2))
     print("文本相似度:", similary, "%")
 
+
 # 运行程序
 if __name__ == "__main__":
-    main()
-
+    run()
 
 '''pr.disable()
 s = io.StringIO()
