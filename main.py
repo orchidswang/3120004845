@@ -1,10 +1,11 @@
 import jieba
-import cProfile #, pstats, io
+import cProfile
 from line_profiler_pycharm import profile
 import os
 import re
 from simhash import Simhash
-import unittest
+import sys
+
 
 pr = cProfile.Profile()
 pr.enable()
@@ -14,8 +15,8 @@ pr.enable()
 def simhash_similarity(text1, text2):
     word1 = jieba.lcut(text1, cut_all=False, HMM=True)
     word2 = jieba.lcut(text2, cut_all=False, HMM=True)
-    print(word1)
-    print(word2)
+    '''print(word1)
+    print(word2)'''
 
     # 将提取出来的关键词进行Simhash处理
     a_simhash = Simhash(word1)
@@ -49,8 +50,8 @@ def remove_punctuation(data):
 
 @profile
 def main():
-    file1 = '测试文本/orig.txt'
-    file2 = '测试文本/orig_0.8_del.txt'
+    file1 = sys.argv[1]
+    file2 = sys.argv[2]
 
     # 判断文件是否存在,如果不存在,则结束运行
     if (os.path.exists(file1) == False | os.path.exists(file2) == False):
