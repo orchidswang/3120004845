@@ -1,3 +1,4 @@
+import profile
 import time
 from datetime import datetime
 import datetime
@@ -11,6 +12,7 @@ def remove_punctuation(data):
     data1.append(string)
     return data1
 
+
 def Generate_hash():
     now = str(datetime.datetime.now())
     now = str(remove_punctuation(now))  #去除时间中的多余的符号
@@ -19,12 +21,13 @@ def Generate_hash():
     if (hash1<0): hash1 = -hash1
     return hash1
 
+
 def Stitching_Numbers(num1,num2):
-    str1 = str(num1)
-    str2 = str(num2)
+    if(type(num1) == int): str1 = str(num1)
+    if(type(num2) == int): str2 = str(num2)
     str3 = str1+str2
-    int(str3)
     return str3
+
 
 def get_serial_number():
     num1 = Generate_hash()
@@ -33,7 +36,12 @@ def get_serial_number():
     serial = Stitching_Numbers(num1,num2)
     print(serial)
 
+def Generate_txt(str):
+    return 0
+
 get_serial_number()
+quantity = input("请输入题目的数量:")
+
 
 
 
