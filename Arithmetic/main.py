@@ -42,6 +42,9 @@ def Get_serial_number():
     serial = Stitching_Numbers(num1, num2)
     return serial'''
 
+# 设置全局变量
+NUM = 0
+
 
 # 文件写入函数
 def Create_txt(name, msg, model):
@@ -130,21 +133,8 @@ def Create_fraction(serial):
         intrger1 = random.randint(1, numrange)
         intrger2 = random.randint(1, numrange)
         frac = Fraction(intrger1, intrger2)
-        print(frac)
     return frac
 
-
-# 主函数
-if __name__ == "__main__":
-    serial = ""
-    quantity = Get_quantity()
-    numrange = Get_range()
-    serial = Add_num(numrange, serial, 3)
-    serial = Add_num(quantity, serial, 4)
-    print(Create_integer(serial))
-    print(Create_fraction(serial))
-    Create_txt("Exercises", serial, 1)
-    print("此次生成的序列号为:", serial)
 
 '''
 1、同两个数 加减乘除一起（数量无法均匀分配 遇到-和/要另外处理）
@@ -166,22 +156,47 @@ def op_choice():
 
 # 四则运算
 def function():
+    global NUM
+    NUM = NUM + 1
     x = num_choice(serial)
     y = num_choice(serial)
     op = op_choice()
 
+
     if op == '+':
-        print('{}+{}={}'.format(x, y, x + y))
-    elif op == '-':
+        a = Fraction(x)+Fraction(y)
+
+        print(NUM, '. {} + {} ={}'.format(x, y, a))
+    if op == '-':
         if x < y:
-            function()
-        else:
-            print('{}-{}={}'.format(x, y, x - y))
-    elif op == '*':
-        print('{}*{}={}'.format(x, y, x * y))
-    elif op == '/':
-        # y是否为0
-        if y == 0:
-            function()
-        else:
-            print("{}/{}={}".format(x, y, x / y))
+            t = x
+            x = y
+            y = t
+            a = Fraction(x)-Fraction(y)
+            print(NUM, '. {} - {} ={}'.format(x, y, a))
+    if op == '*':
+        a = Fraction(x)*Fraction(y)
+        print(NUM, '. {} * {} ={}'.format(x, y, a))
+    if op == '/':
+        a = Fraction(x)/Fraction(y)
+        print(NUM, '.  {} / {} ={}'.format(x, y, a))
+
+
+def Create_formula(serial):
+    amount = int(serial[0:4])
+    for i in range(0, amount):
+        function()
+
+
+# 主函数
+if __name__ == "__main__":
+    serial = ""
+    quantity = Get_quantity()
+    numrange = Get_range()
+    serial = Add_num(numrange, serial, 3)
+    serial = Add_num(quantity, serial, 4)
+    # print(Create_integer(serial))
+    # print(Create_fraction(serial))
+    Create_formula(serial)
+    Create_txt("Exercises", serial, 1)
+    print("此次生成的序列号为:", serial)
