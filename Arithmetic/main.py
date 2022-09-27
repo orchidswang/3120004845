@@ -23,23 +23,8 @@ def date():
     now = now.replace("[", "").replace("'", "").replace(" ", "").replace("'", "'").replace("]", "")  # 将空格与[]符号去除
     return now
 
-# 连接两个数字的函数
-'''def Stitching_Numbers(num1, num2):
-    global str1
-    if (type(num1) == int): str1 = str(num1)
-    if (type(num2) == int): str2 = str(num2)
-    str3 = str1 + str2
-    return str3
 
 
-# 创建序列号函数
-
-def Get_serial_number():
-    num1 = Generate_hash()
-    time.sleep(0.2)  # 等待0.2s,以便于生成两个不同的哈希值
-    num2 = Generate_hash()
-    serial = Stitching_Numbers(num1, num2)
-    return serial'''
 
 # 设置全局变量
 NUM = 0
@@ -157,7 +142,6 @@ def op_choice():
     list2 = ['+', '-', '*', '/']
     return choice(list2)
 
-
 # 分数化简为整数/带分数
 def real_fra(a):
     if a > 1:
@@ -175,50 +159,30 @@ def real_fra(a):
     else:
         return a
 
-
 # 四则运算
-def function():
+def function(serial):
     global NUM
     NUM = NUM + 1
     x = num_choice(serial)
     y = num_choice(serial)
     op = op_choice()
-<<<<<<< HEAD
-
-    if op == '+':
-        a = Fraction(x) + Fraction(y)
-        a = real_fra(a)
-        print(NUM, '. {} + {} ={}'.format(x, y, a))
-=======
     time = date()
 
     if op == '+':
         a = Fraction(x)+Fraction(y)
+        a = real_fra(a)
         str1 = str(NUM) + ". " + str(x) + " + " + str(y) + " =" + str(a)
         str2 = str(NUM) + ". " + str(x) + " + " + str(y) + " ="
         print(str1)
         Create_txt("answer",str1,1)
         Create_txt("Exercises", str2, 1)
->>>>>>> 01d54151e8394eb0d09dedcd1362eb5670196350
     if op == '-':
         if x < y:
             t = x
             x = y
             y = t
-<<<<<<< HEAD
-            a = Fraction(x) - Fraction(y)
-            a = real_fra(a)
-            print(NUM, '. {} - {} ={}'.format(x, y, a))
-    if op == '*':
-        a = Fraction(x) * Fraction(y)
-        real_fra(a)
-        print(NUM, '. {} * {} ={}'.format(x, y, a))
-    if op == '/':
-        a = Fraction(x) / Fraction(y)
-        real_fra(a)
-        print(NUM, '.  {} / {} ={}'.format(x, y, a))
-=======
             a = Fraction(x)-Fraction(y)
+            a = real_fra(a)
             str1 = str(NUM)+". "+str(x)+" - "+str(y)+ " ="+str(a)
             str2 = str(NUM)+". "+str(x)+" - "+str(y)+ " ="
             print(str1)
@@ -226,6 +190,7 @@ def function():
             Create_txt("Exercises", str2, 1)
     if op == '*':
         a = Fraction(x)*Fraction(y)
+        a = real_fra(a)
         str1 = str(NUM) + ". " + str(x) + " * " + str(y) + " =" + str(a)
         str2 = str(NUM) + ". " + str(x) + " * " + str(y) + " ="
         print(str1)
@@ -233,23 +198,21 @@ def function():
         Create_txt("Exercises", str2, 1)
     if op == '/':
         a = Fraction(x)/Fraction(y)
+        a = real_fra(a)
         str1 = str(NUM) + ". " + str(x) + " / " + str(y) + " =" + str(a)
         str2 = str(NUM) + ". " + str(x) + " / " + str(y) + " ="
         print(str1)
         Create_txt("answer", str1, 1)
         Create_txt("Exercises", str2, 1)
 
->>>>>>> 01d54151e8394eb0d09dedcd1362eb5670196350
 
 
 def Create_formula(serial):
     amount = int(serial[0:4])
     for i in range(0, amount):
-        function()
+        function(serial)
 
-
-# 主函数
-if __name__ == "__main__":
+def Create_problems():
     serial = ""
     quantity = Get_quantity()
     numrange = Get_range()
@@ -258,5 +221,18 @@ if __name__ == "__main__":
     Create_txt("Exercises", serial, 2)
     Create_txt("answer", serial, 2)
     Create_formula(serial)
-    print(numrange,"道四则运算已经生成完成")
+    print(quantity, "道四则运算已经生成完成")
     print("此次生成的序列号为:", serial)
+
+
+def judge():
+    return 0
+
+# 主函数
+if __name__ == "__main__":
+    state = input("请输入你想要的功能:\n1生成题目  2对照答案\n")
+
+    if state == "1":
+        Create_problems()
+    if state == "2":
+        judge()
