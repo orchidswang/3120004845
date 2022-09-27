@@ -168,6 +168,8 @@ def real_fra(a):
             num2 = str(Fraction(num2, y))
             a = num1 + "'" + num2
         return a
+    else:
+        return a
 
 
 # 四则运算
