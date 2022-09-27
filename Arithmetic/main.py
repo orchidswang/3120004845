@@ -1,10 +1,10 @@
-#import time
-#from datetime import datetime
-#import datetime
-#import re
+# import time
+# from datetime import datetime
+# import datetime
+# import re
 import random
 from fraction import Fraction
-
+from random import choice
 
 '''# 删除字符串中的标点符号
 def Remove_punctuation(data):
@@ -23,7 +23,6 @@ def Generate_hash():
     hash1 = hash(now)
     if hash1 < 0: hash1 = -hash1
     return hash1'''
-
 
 '''# 连接两个数字的函数
 def Stitching_Numbers(num1, num2):
@@ -113,18 +112,21 @@ def Create_integer(serial):
 
 # 生成分数的函数
 def Create_fraction(serial):
-    #这里的比较是为了让生成的分数不能被化简为整数
-    def Judge_num(num1,num2,max):
-        if num1 < num2 : return True
-        else :
-            for i in range(1,int(max/num2)):
-                if i*num2 == num1: return False
-            else: return True
+    # 这里的比较是为了让生成的分数不能被化简为整数
+    def Judge_num(num1, num2, max):
+        if num1 < num2:
+            return True
+        else:
+            for i in range(1, int(max / num2)):
+                if i * num2 == num1: return False
+            else:
+                return True
+
     numrange = int(serial[4:7])
     intrger1 = random.randint(1, numrange)
     intrger2 = random.randint(1, numrange)
-    frac = Fraction(intrger1,intrger2)
-    while Judge_num(intrger1,intrger2,numrange) ==False:
+    frac = Fraction(intrger1, intrger2)
+    while Judge_num(intrger1, intrger2, numrange) == False:
         intrger1 = random.randint(1, numrange)
         intrger2 = random.randint(1, numrange)
         frac = Fraction(intrger1, intrger2)
@@ -143,3 +145,43 @@ if __name__ == "__main__":
     print(Create_fraction(serial))
     Create_txt("Exercises", serial, 1)
     print("此次生成的序列号为:", serial)
+
+'''
+1、同两个数 加减乘除一起（数量无法均匀分配 遇到-和/要另外处理）
+2、不同数 加减乘除随机（查重比较麻烦）
+'''
+
+
+# 从随机整数/分数序列中选一个数字参与运算
+def num_choice(serial):
+    list1 = [Create_fraction(serial), Create_integer(serial)]
+    return choice(list1)
+
+
+# 选择运算符
+def op_choice():
+    list2 = ['+', '-', '*', '/']
+    return choice(list2)
+
+
+# 四则运算
+def function():
+    x = num_choice(serial)
+    y = num_choice(serial)
+    op = op_choice()
+
+    if op == '+':
+        print('{}+{}={}'.format(x, y, x + y))
+    elif op == '-':
+        if x < y:
+            function()
+        else:
+            print('{}-{}={}'.format(x, y, x - y))
+    elif op == '*':
+        print('{}*{}={}'.format(x, y, x * y))
+    elif op == '/':
+        # y是否为0
+        if y == 0:
+            function()
+        else:
+            print("{}/{}={}".format(x, y, x / y))
