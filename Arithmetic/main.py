@@ -154,6 +154,22 @@ def op_choice():
     return choice(list2)
 
 
+# 分数化简为整数/带分数
+def real_fra(a):
+    if a > 1:
+        x = a.numerator  # 获取分子
+        y = a.denominator  # 获取分母
+        num1 = x // y  # 整数部分
+        num2 = x % y  # 余数
+        if num2 == 0:  # 答案为整数
+            a = num1
+        else:
+            num1 = str(num1)
+            num2 = str(Fraction(num2, y))
+            a = num1 + "'" + num2
+        return a
+
+
 # 四则运算
 def function():
     global NUM
@@ -162,23 +178,25 @@ def function():
     y = num_choice(serial)
     op = op_choice()
 
-
     if op == '+':
-        a = Fraction(x)+Fraction(y)
-
+        a = Fraction(x) + Fraction(y)
+        a = real_fra(a)
         print(NUM, '. {} + {} ={}'.format(x, y, a))
     if op == '-':
         if x < y:
             t = x
             x = y
             y = t
-            a = Fraction(x)-Fraction(y)
+            a = Fraction(x) - Fraction(y)
+            a = real_fra(a)
             print(NUM, '. {} - {} ={}'.format(x, y, a))
     if op == '*':
-        a = Fraction(x)*Fraction(y)
+        a = Fraction(x) * Fraction(y)
+        real_fra(a)
         print(NUM, '. {} * {} ={}'.format(x, y, a))
     if op == '/':
-        a = Fraction(x)/Fraction(y)
+        a = Fraction(x) / Fraction(y)
+        real_fra(a)
         print(NUM, '.  {} / {} ={}'.format(x, y, a))
 
 
