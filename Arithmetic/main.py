@@ -1,12 +1,13 @@
-# import time
-# from datetime import datetime
-# import datetime
-# import re
+import time
+from datetime import datetime
+import datetime
+import re
 import random
 from fraction import Fraction
 from random import choice
 
-'''# 删除字符串中的标点符号
+
+# 删除字符串中的标点符号
 def Remove_punctuation(data):
     data1 = []
     remove_chars = '-.:'
@@ -16,16 +17,14 @@ def Remove_punctuation(data):
 
 
 # 通过当前时间生成hash的函数
-def Generate_hash():
+def date():
     now = str(datetime.datetime.now())
-    now = str(Remove_punctuation(now))  # 去除时间中的多余的符号
+    now = str(Remove_punctuation(now))   # 去除时间中的多余的符号
     now = now.replace("[", "").replace("'", "").replace(" ", "").replace("'", "'").replace("]", "")  # 将空格与[]符号去除
-    hash1 = hash(now)
-    if hash1 < 0: hash1 = -hash1
-    return hash1'''
+    return now
 
-'''# 连接两个数字的函数
-def Stitching_Numbers(num1, num2):
+# 连接两个数字的函数
+'''def Stitching_Numbers(num1, num2):
     global str1
     if (type(num1) == int): str1 = str(num1)
     if (type(num2) == int): str2 = str(num2)
@@ -48,9 +47,14 @@ NUM = 0
 
 # 文件写入函数
 def Create_txt(name, msg, model):
-    if model == 1:  # 模式1:创建txt文件以及序列号
+    if model == 1:  # 模式1:追加文本
         name = name + ".txt"
         with open(name, "a+") as file1:
+            file1.write(msg + "\n")
+            file1.close()
+    if model == 2:  # 模式2:创建txt文件以及序列号
+        name = name + ".txt"
+        with open(name, "w+") as file1:
             file1.write(msg + "\n")
             file1.close()
 
@@ -161,25 +165,41 @@ def function():
     x = num_choice(serial)
     y = num_choice(serial)
     op = op_choice()
-
+    time = date()
 
     if op == '+':
         a = Fraction(x)+Fraction(y)
-
-        print(NUM, '. {} + {} ={}'.format(x, y, a))
+        str1 = str(NUM) + ". " + str(x) + " + " + str(y) + " =" + str(a)
+        str2 = str(NUM) + ". " + str(x) + " + " + str(y) + " ="
+        print(str1)
+        Create_txt("answer",str1,1)
+        Create_txt("Exercises", str2, 1)
     if op == '-':
         if x < y:
             t = x
             x = y
             y = t
             a = Fraction(x)-Fraction(y)
-            print(NUM, '. {} - {} ={}'.format(x, y, a))
+            str1 = str(NUM)+". "+str(x)+" - "+str(y)+ " ="+str(a)
+            str2 = str(NUM)+". "+str(x)+" - "+str(y)+ " ="
+            print(str1)
+            Create_txt("answer", str1, 1)
+            Create_txt("Exercises", str2, 1)
     if op == '*':
         a = Fraction(x)*Fraction(y)
-        print(NUM, '. {} * {} ={}'.format(x, y, a))
+        str1 = str(NUM) + ". " + str(x) + " * " + str(y) + " =" + str(a)
+        str2 = str(NUM) + ". " + str(x) + " * " + str(y) + " ="
+        print(str1)
+        Create_txt("answer", str1, 1)
+        Create_txt("Exercises", str2, 1)
     if op == '/':
         a = Fraction(x)/Fraction(y)
-        print(NUM, '.  {} / {} ={}'.format(x, y, a))
+        str1 = str(NUM) + ". " + str(x) + " / " + str(y) + " =" + str(a)
+        str2 = str(NUM) + ". " + str(x) + " / " + str(y) + " ="
+        print(str1)
+        Create_txt("answer", str1, 1)
+        Create_txt("Exercises", str2, 1)
+
 
 
 def Create_formula(serial):
@@ -195,8 +215,8 @@ if __name__ == "__main__":
     numrange = Get_range()
     serial = Add_num(numrange, serial, 3)
     serial = Add_num(quantity, serial, 4)
-    # print(Create_integer(serial))
-    # print(Create_fraction(serial))
+    Create_txt("Exercises", serial, 2)
+    Create_txt("answer", serial, 2)
     Create_formula(serial)
-    Create_txt("Exercises", serial, 1)
+    print(numrange,"道四则运算已经生成完成")
     print("此次生成的序列号为:", serial)
