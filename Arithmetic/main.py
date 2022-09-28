@@ -2,14 +2,14 @@ import random
 from fraction import Fraction
 from random import choice
 import os
-from line_profiler_pycharm import profile
+
 
 # 设置全局变量
 NUM = 0
 
 
 # 文件写入函数
-@profile
+
 def Create_txt(name, msg, model):
     if model == 1:  # 模式1:追加文本
         name = name + ".txt"
@@ -26,7 +26,7 @@ def Create_txt(name, msg, model):
 
 
 # 在序列号中添加题目数量函数
-@profile
+
 def Add_num(quantity, serial, num):
     str1 = "0"
     str2 = ""
@@ -39,11 +39,11 @@ def Add_num(quantity, serial, num):
 
 
 # 获取生成题目数量的函数
-@profile
+
 def Get_quantity():
     # 判断字符串是否大于5的函数
     def Judge_len(str1):
-        if len(str1) > 5:
+        if len(str1) > 4:
             return False
         else:
             return True
@@ -59,7 +59,7 @@ def Get_quantity():
 
 
 # 获取生成题目的范围
-@profile
+
 def Get_range():
     def Judge_len(str1):
         if len(str1) > 3:
@@ -78,7 +78,7 @@ def Get_range():
 
 
 # 生成整数的函数
-@profile
+
 def Create_integer(serial):
     numrange = int(serial[4:7])
     intrger = random.randint(1, numrange)
@@ -86,7 +86,7 @@ def Create_integer(serial):
 
 
 # 生成分数的函数
-@profile
+
 def Create_fraction(serial):
     # 这里的比较是为了让生成的分数不能被化简为整数
     def Judge_num(num1, num2, max):
@@ -116,21 +116,21 @@ def Create_fraction(serial):
 
 
 # 从随机整数/分数序列中选一个数字参与运算
-@profile
+
 def num_choice(serial):
     list1 = [Create_fraction(serial), Create_integer(serial)]
     return choice(list1)
 
 
 # 选择运算符
-@profile
+
 def op_choice():
     list2 = ['+', '-', '*', '/']
     return choice(list2)
 
 
 # 分数化简为整数/带分数
-@profile
+
 def real_fra(a):
     if a > 1:
         x = a.numerator  # 获取分子
@@ -149,7 +149,7 @@ def real_fra(a):
 
 
 # 四则运算
-@profile
+
 def function(serial):
     global NUM
     NUM = NUM + 1
@@ -196,7 +196,7 @@ def function(serial):
 
 
 # 生成题目
-@profile
+
 def Create_formula(serial):
     amount = int(serial[0:4])
     for i in range(0, amount):
@@ -204,7 +204,7 @@ def Create_formula(serial):
 
 
 # 生成题目文件
-@profile
+
 def Create_problems():
     serial = ""
     quantity = Get_quantity()
@@ -218,7 +218,7 @@ def Create_problems():
 
 
 # 判断题目对错
-@profile
+
 def judge():
     answer = "answer.txt"
     exercises = "Exercises.txt"
@@ -262,7 +262,7 @@ def judge():
 
 
 # 主要程序
-@profile
+
 def run():
     while True:
         state = input("请输入你想要的功能:\n1生成题目  2对照答案 3退出程序\n")
